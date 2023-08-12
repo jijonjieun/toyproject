@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myinfo">
+
+<select id="myinfo" parameterType="string" resultType="loginDTO">
+	SELECT m_id, m_intro FROM ThreadMember
+	 WHERE m_id=#{m_id}
+</select>
+
+
+</mapper>
