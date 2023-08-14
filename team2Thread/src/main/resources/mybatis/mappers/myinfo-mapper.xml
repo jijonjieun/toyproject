@@ -5,9 +5,13 @@
 <mapper namespace="myinfo">
 
 <select id="myinfo" parameterType="string" resultType="loginDTO">
-	SELECT m_id, m_intro FROM ThreadMember
+	SELECT * FROM ThreadMember
 	 WHERE m_id=#{m_id}
 </select>
 
+<update id="changeinfo" parameterType="Map"> 
+update ThreadMember set m_intro = #{m_intro} where m_id = #{m_id}
+
+</update>
 
 </mapper>

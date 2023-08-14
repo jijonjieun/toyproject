@@ -1,6 +1,6 @@
 package com.Thread.myinfo;
 
-import java.util.UUID;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Thread.login.LoginDTO;
@@ -26,13 +27,11 @@ public class MyInfoController {
 		
 		session.setAttribute("mid", "jijon");
 	
-
 		if (session.getAttribute("mid") != null) {
 
 			String id = (String) session.getAttribute("mid");
 
 			LoginDTO result = myInfoService.myInfo(id);
-			
 		
 		if (result != null) {
 
@@ -57,21 +56,7 @@ public class MyInfoController {
 	
 	
 	@GetMapping("/profile")
-	public String profile(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		if (session.getAttribute("mid") != null) {
-			return "profile";
-
-		} else {
-			return "redirect:/login";
-		}
-	}
-	
-	
-	
-	@PostMapping("/profile")
-	public ModelAndView profile2 (HttpServletRequest request) {
-
+	public ModelAndView profile(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.setAttribute("mid", "jijon");
 		ModelAndView mv = new ModelAndView();
@@ -81,10 +66,12 @@ public class MyInfoController {
 			String id = (String) session.getAttribute("mid");
 			
 	
-			LoginDTO result = myInfoService.myInfo(id);
+			LoginDTO dto = myInfoService.myInfo(id);
 			
-			mv.addObject("result", result);
-			mv.setViewName("myinfo");
+			System.out.println(dto.getM_id());
+			
+			mv.addObject("dto", dto);
+			mv.setViewName("profile");
 			
 	
 		} else {
@@ -95,6 +82,25 @@ public class MyInfoController {
 		return mv;
 
 	}
+	
+	
+	
+	@GetMapping("/changeinfo")
+	public String join() {
+		return "changeinfo";
+	}
+	
+	@PostMapping("/changeinfo")
+	public String changeinfo(@RequestParam Map<String, Object> map) {
+		myInfoService.changeinfo(map);
+	
+			return "myinfo";
+	
+	}
+	
+	
+	
+	
 	
 
 	
