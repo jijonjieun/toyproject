@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+.profile-div {
+	float:left;
+	margin:10px 40px;
+	width: 800px;
+	height: auto;
+}
